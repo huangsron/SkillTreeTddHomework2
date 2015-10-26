@@ -85,6 +85,27 @@ namespace PotterShoppingCart.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void Test_buy_4_diff_book_return_amount_320()
+        {
+            var orders = new List<Order>
+            {
+                new Order {Id = 1, Quantity = 1,Price = 100},
+                new Order {Id = 2, Quantity = 1,Price = 100},
+                new Order {Id = 3, Quantity = 1,Price = 100},
+                new Order {Id = 4, Quantity = 1,Price = 100},
+                new Order {Id = 5, Quantity = 0,Price = 100},
+            };
+
+            var target = new ShoppingCart(_book);
+
+            var expected = 320;
+
+            var actual = target.GetAmount(orders);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 
     public class ShoppingCart
@@ -132,7 +153,8 @@ namespace PotterShoppingCart.Tests
 
                 case 3:
                     return 0.9;
-
+                case 4:
+                    return 0.8;
                 default:
                     return 1;
             }
