@@ -106,6 +106,69 @@ namespace PotterShoppingCart.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void Test_buy_5_diff_book_return_amount_375()
+        {
+            var orders = new List<Order>
+            {
+                new Order {Id = 1, Quantity = 1,Price = 100},
+                new Order {Id = 2, Quantity = 1,Price = 100},
+                new Order {Id = 3, Quantity = 1,Price = 100},
+                new Order {Id = 4, Quantity = 1,Price = 100},
+                new Order {Id = 5, Quantity = 1,Price = 100},
+            };
+
+            var target = new ShoppingCart(_book);
+
+            var expected = 375;
+
+            var actual = target.GetAmount(orders);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test_buy_3_diff_book_and_1_book_return_amount_370()
+        {
+            var orders = new List<Order>
+            {
+                new Order {Id = 1, Quantity = 1,Price = 100},
+                new Order {Id = 2, Quantity = 1,Price = 100},
+                new Order {Id = 3, Quantity = 2,Price = 100},
+                new Order {Id = 4, Quantity = 0,Price = 100},
+                new Order {Id = 5, Quantity = 0,Price = 100},
+            };
+
+            var target = new ShoppingCart(_book);
+
+            var expected = 370;
+
+            var actual = target.GetAmount(orders);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test_buy_3_diff_book_and_2_diff_book_return_amount_460()
+        {
+            var orders = new List<Order>
+            {
+                new Order {Id = 1, Quantity = 1,Price = 100},
+                new Order {Id = 2, Quantity = 2,Price = 100},
+                new Order {Id = 3, Quantity = 2,Price = 100},
+                new Order {Id = 4, Quantity = 0,Price = 100},
+                new Order {Id = 5, Quantity = 0,Price = 100},
+            };
+
+            var target = new ShoppingCart(_book);
+
+            var expected = 460;
+
+            var actual = target.GetAmount(orders);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 
     public class ShoppingCart
@@ -153,8 +216,13 @@ namespace PotterShoppingCart.Tests
 
                 case 3:
                     return 0.9;
+
                 case 4:
                     return 0.8;
+
+                case 5:
+                    return 0.75;
+
                 default:
                     return 1;
             }
