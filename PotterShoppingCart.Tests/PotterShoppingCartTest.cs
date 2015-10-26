@@ -27,7 +27,7 @@ namespace PotterShoppingCart.Tests
         {
             var order = new List<Order>
             {
-                new Order {Id = 1, Count = 1}
+                new Order {Id = 1, Quantity = 1}
             };
             var target = new ShoppingCart(_book);
 
@@ -41,7 +41,7 @@ namespace PotterShoppingCart.Tests
     public class Order
     {
         public int Id { get; set; }
-        public int Count { get; set; }
+        public int Quantity { get; set; }
     }
 
     public class Book
@@ -53,12 +53,12 @@ namespace PotterShoppingCart.Tests
 
     public class ShoppingCart
     {
-        public ShoppingCart(List<Book> book)
+        public ShoppingCart(IEnumerable<Book> book)
         {
             throw new NotImplementedException();
         }
 
-        public int Calculture(List<Order> order)
+        public int Calculture(IEnumerable<Order> order)
         {
             throw new NotImplementedException();
         }
