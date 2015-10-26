@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
+using System.Linq;
 
 namespace PotterShoppingCart.Tests
 {
@@ -25,42 +26,110 @@ namespace PotterShoppingCart.Tests
         [TestMethod]
         public void Test_buy_1_book_return_amount_100()
         {
-            var order = new List<Order>
+            var orders = new List<Order>
             {
-                new Order {Id = 1, Quantity = 1}
+                new Order {Id = 1, Quantity = 1,Price = 100},
+                new Order {Id = 2, Quantity = 0,Price = 100},
+                new Order {Id = 3, Quantity = 0,Price = 100},
+                new Order {Id = 4, Quantity = 0,Price = 100},
+                new Order {Id = 5, Quantity = 0,Price = 100},
             };
+
             var target = new ShoppingCart(_book);
 
             var expected = 100;
-            var actual = target.Calculture(order);
+
+            var actual = target.GetAmount(orders);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test_buy_2_diff_book_return_amount_190()
+        {
+            var orders = new List<Order>
+            {
+                new Order {Id = 1, Quantity = 1,Price = 100},
+                new Order {Id = 2, Quantity = 1,Price = 100},
+                new Order {Id = 3, Quantity = 0,Price = 100},
+                new Order {Id = 4, Quantity = 0,Price = 100},
+                new Order {Id = 5, Quantity = 0,Price = 100},
+            };
+
+            var target = new ShoppingCart(_book);
+
+            var expected = 190;
+
+            var actual = target.GetAmount(orders);
+
+            Assert.AreEqual(expected, actual);
+        }
+    }
+
+    public class ShoppingCart
+    {
+        private readonly IEnumerable<Book> _book;
+
+        public ShoppingCart(IEnumerable<Book> book)
+        {
+            _book = book;
+        }
+
+        public double GetAmount(IEnumerable<Order> order)
+        {
+            // keep
+            var orders = order as IList<Order> ?? order.ToList();
+
+            var count = 0;
+            double amount = 0;
+
+
+            while (orders.Any(e=>e.Quantity > count))
+            {
+                var temp = orders.Where(e => e.Quantity > count).ToList();
+
+                var discount = GetDiscount(temp);
+
+                amount += temp.Sum(e => (e.Price*discount));
+
+                count++;
+            }
+
+            return amount;
+        }
+
+        private double GetDiscount(IEnumerable<Order> @where)
+        {
+            var count = where.Count();
+            switch (count)
+            {
+                case 1:
+                    //當資料只有一筆不打折
+                    return 1;
+                case 2:
+                    return 0.95;
+                default:
+                    return 1;
+            }
         }
     }
 
     public class Order
     {
         public int Id { get; set; }
+
         public int Quantity { get; set; }
+        public int Price { get; set; }
     }
 
     public class Book
     {
         public int Id { get; internal set; }
+
         public string Name { get; set; }
+
         public int Price { get; set; }
     }
 
-    public class ShoppingCart
-    {
-        public ShoppingCart(IEnumerable<Book> book)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Calculture(IEnumerable<Order> order)
-        {
-            throw new NotImplementedException();
-        }
-    }
+   
 }
