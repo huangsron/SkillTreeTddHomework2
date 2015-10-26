@@ -28,7 +28,7 @@ namespace PotterShoppingCart.Tests
 
             var target = new ShoppingCart();
 
-            var expected = 100;
+            var expected = 100d;
 
             var actual = target.GetAmount(orders);
 
@@ -49,7 +49,7 @@ namespace PotterShoppingCart.Tests
 
             var target = new ShoppingCart();
 
-            var expected = 190;
+            var expected = 190d;
 
             var actual = target.GetAmount(orders);
 
@@ -70,7 +70,7 @@ namespace PotterShoppingCart.Tests
 
             var target = new ShoppingCart();
 
-            var expected = 270;
+            var expected = 270d;
 
             var actual = target.GetAmount(orders);
 
@@ -91,7 +91,7 @@ namespace PotterShoppingCart.Tests
 
             var target = new ShoppingCart();
 
-            var expected = 320;
+            var expected = 320d;
 
             var actual = target.GetAmount(orders);
 
@@ -112,7 +112,7 @@ namespace PotterShoppingCart.Tests
 
             var target = new ShoppingCart();
 
-            var expected = 375;
+            var expected = 375d;
 
             var actual = target.GetAmount(orders);
 
@@ -133,7 +133,7 @@ namespace PotterShoppingCart.Tests
 
             var target = new ShoppingCart();
 
-            var expected = 370;
+            var expected = 370d;
 
             var actual = target.GetAmount(orders);
 
@@ -154,7 +154,7 @@ namespace PotterShoppingCart.Tests
 
             var target = new ShoppingCart();
 
-            var expected = 460;
+            var expected = 460d;
 
             var actual = target.GetAmount(orders);
 
