@@ -176,9 +176,11 @@ namespace PotterShoppingCart.Tests
             while (orders.Any(e => e.Quantity > count))
             {
                 var temp = orders.Where(e => e.Quantity > count).ToList();
-
+                
+                //取得折扣
                 var discount = GetDiscount(temp);
 
+                //計算金額，折扣項目為1個單位
                 amount += temp.Sum(e => (e.Price * discount));
 
                 count++;
