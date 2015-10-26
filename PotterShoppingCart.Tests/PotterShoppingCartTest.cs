@@ -187,9 +187,10 @@ namespace PotterShoppingCart.Tests
             return amount;
         }
 
-        private double GetDiscount(IEnumerable<Order> @where)
+        private double GetDiscount(IEnumerable<Order> orders)
         {
-            var count = where.Count();
+            // 計算有幾筆資料不同
+            var count = orders.Count();
             switch (count)
             {
                 case 1:
