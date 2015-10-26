@@ -7,19 +7,10 @@ namespace PotterShoppingCart.Tests
     [TestClass]
     public class PotterShoppingCartTest
     {
-        private static List<Book> _book;
-
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            _book = new List<Book>
-            {
-                new Book {Id = 1, Name = "第一集", Price = 100},
-                new Book {Id = 2, Name = "第二集", Price = 100},
-                new Book {Id = 3, Name = "第三集", Price = 100},
-                new Book {Id = 4, Name = "第四集", Price = 100},
-                new Book {Id = 5, Name = "第五集", Price = 100}
-            };
+          
         }
 
         //Scenario: 第一集買了一本，其他都沒買，價格應為100*1=100元
@@ -35,7 +26,7 @@ namespace PotterShoppingCart.Tests
                 new Order {Id = 5, Quantity = 0,Price = 100},
             };
 
-            var target = new ShoppingCart(_book);
+            var target = new ShoppingCart();
 
             var expected = 100;
 
@@ -56,7 +47,7 @@ namespace PotterShoppingCart.Tests
                 new Order {Id = 5, Quantity = 0,Price = 100},
             };
 
-            var target = new ShoppingCart(_book);
+            var target = new ShoppingCart();
 
             var expected = 190;
 
@@ -77,7 +68,7 @@ namespace PotterShoppingCart.Tests
                 new Order {Id = 5, Quantity = 0,Price = 100},
             };
 
-            var target = new ShoppingCart(_book);
+            var target = new ShoppingCart();
 
             var expected = 270;
 
@@ -98,7 +89,7 @@ namespace PotterShoppingCart.Tests
                 new Order {Id = 5, Quantity = 0,Price = 100},
             };
 
-            var target = new ShoppingCart(_book);
+            var target = new ShoppingCart();
 
             var expected = 320;
 
@@ -119,7 +110,7 @@ namespace PotterShoppingCart.Tests
                 new Order {Id = 5, Quantity = 1,Price = 100},
             };
 
-            var target = new ShoppingCart(_book);
+            var target = new ShoppingCart();
 
             var expected = 375;
 
@@ -140,7 +131,7 @@ namespace PotterShoppingCart.Tests
                 new Order {Id = 5, Quantity = 0,Price = 100},
             };
 
-            var target = new ShoppingCart(_book);
+            var target = new ShoppingCart();
 
             var expected = 370;
 
@@ -161,7 +152,7 @@ namespace PotterShoppingCart.Tests
                 new Order {Id = 5, Quantity = 0,Price = 100},
             };
 
-            var target = new ShoppingCart(_book);
+            var target = new ShoppingCart();
 
             var expected = 460;
 
@@ -173,12 +164,6 @@ namespace PotterShoppingCart.Tests
 
     public class ShoppingCart
     {
-        private readonly IEnumerable<Book> _book;
-
-        public ShoppingCart(IEnumerable<Book> book)
-        {
-            _book = book;
-        }
 
         public double GetAmount(IEnumerable<Order> order)
         {
@@ -234,15 +219,6 @@ namespace PotterShoppingCart.Tests
         public int Id { get; set; }
 
         public int Quantity { get; set; }
-
-        public int Price { get; set; }
-    }
-
-    public class Book
-    {
-        public int Id { get; internal set; }
-
-        public string Name { get; set; }
 
         public int Price { get; set; }
     }
